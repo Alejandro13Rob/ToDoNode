@@ -7,8 +7,7 @@ const createServer = () => {
   app.use(express.json());
   app.use(
     helmet({
-      contentSecurityPolicy:
-        process.env.NODE_ENV === 'production' ? undefined : false
+      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
     })
   );
   // CSS stuff

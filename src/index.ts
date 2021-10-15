@@ -9,7 +9,7 @@ async function startApolloServer() {
   const { app } = createServer();
 
   apolloServer.applyMiddleware({
-    app
+    app,
   });
 
   await mongoConnect();
