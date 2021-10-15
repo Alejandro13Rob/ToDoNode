@@ -9,10 +9,11 @@
     "start:prod": "npm run build && node build/index.js",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
+    "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "gen-types": "graphql-codegen --config codegen.yml",
-    "lint": "eslint . --ext .ts",
-    "lint-and-fix": "eslint . --ext .ts --fix"
+    "prepare": "husky install"
   },
   "keywords": [
     "todo",
@@ -46,11 +47,18 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.2.3",
     "nodemon": "^2.0.13",
     "onchange": "^7.1.0",
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.3.0"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --cache --fix"
   }
 }
