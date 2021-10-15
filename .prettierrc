@@ -1,5 +1,7 @@
 {
   "semi": true,
   "singleQuote": true,
-  "printWidth": 90
+  "printWidth": 90,
+  "tabWidth": 4,
+  "endOfLine": "lf"
 }

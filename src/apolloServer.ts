@@ -4,12 +4,12 @@ import { ApolloServerExpressConfig } from 'apollo-server-express';
 import { resolvers } from './graphql/resolvers';
 
 const typeDefs = fs
-  .readFileSync(path.join(__dirname, './graphql/schema.ts'), 'utf8')
-  .toString();
+    .readFileSync(path.join(__dirname, './graphql/schema.gql'), 'utf8')
+    .toString();
 
 const serverConfig: ApolloServerExpressConfig = {
-  typeDefs,
-  resolvers,
+    typeDefs,
+    resolvers,
 };
 
 export { serverConfig };

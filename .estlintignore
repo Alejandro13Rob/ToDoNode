@@ -1,0 +1,11 @@
+node_modules
+dist
+.husky
+README
+./src/expressServer.ts
+**/*.json
+**/*.yml
+**/*.xml
+**/generated.d.ts
+**/generated.ts
+**/*.test.ts
