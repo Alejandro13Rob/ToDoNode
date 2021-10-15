@@ -1,6 +1,5 @@
-import * as express from 'express';
-const helmet = require('helmet');
-const todoModel = require('./datasources/mongoModel');
+import express from 'express';
+import helmet from 'helmet';
 
 const createServer = () => {
     const app = express();
@@ -11,26 +10,9 @@ const createServer = () => {
     app.use("/static", express.static("public"));
     app.use(express.urlencoded({ extended: true }));
     app.set("view engine", "ejs");
-    // REST stuff
-    app.get('/', (request, response) => {
-        /*TodoTask.find({}, (err, tasks) => {
-            response.render("todo.ejs", { todoTasks: tasks });
-        });
-        response.render("todo.ejs", { todoTasks: tasks });*/
-    });
 
-    app.post('/', async (request, response) => {
-        const todoTask = new todoModel({ content: request.body.content });
-        try {
-            await todoTask.save();
-            response.redirect("/");
-        } catch (err) {
-            response.redirect("/");
-        }
-        // response.send('ToDo App Post working');
-        console.log(request.body);
-        response.json(request.body);
-    });
+    app.use('/', require('./routes/index'));
+    app.use('/users', require('./routes/users'))
 
     return { app };
 };

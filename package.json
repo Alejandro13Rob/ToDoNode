@@ -2,9 +2,9 @@
   "name": "todonode",
   "version": "1.0.0",
   "description": "simple todo app to learn js",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "gen-types": "graphql-codegen --config codegen.yml"
   },
@@ -17,8 +17,10 @@
   "license": "MIT",
   "dependencies": {
     "@graphql-codegen/cli": "^2.2.0",
+    "apollo-datasource-mongodb": "^0.5.2",
     "apollo-server": "^3.3.0",
     "apollo-server-express": "^3.3.0",
+    "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
@@ -32,6 +34,8 @@
     "@graphql-codegen/cli": "2.2.0",
     "@graphql-codegen/typescript": "2.2.2",
     "@types/graphql": "^14.5.0",
+    "@types/mongoose": "^5.0.3",
+    "@types/uuid": "^8.3.1",
     "nodemon": "^2.0.13"
   }
 }

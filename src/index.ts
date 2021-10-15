@@ -1,9 +1,10 @@
 import { ApolloServer } from 'apollo-server-express'
-import { createServer } from './src/expressServer';
-import { mongoConnect } from './src/datasources/mongoConnect'
-import { serverConfig } from './src/serverConfig';
+import { createServer } from './expressServer';
+import { mongoConnect } from './datasources/mongoConnect'
+import { serverConfig } from './apolloServer';
 
 async function startApolloServer() {
+
     const apolloServer = new ApolloServer(serverConfig);
     await apolloServer.start();
     const { app } = createServer();

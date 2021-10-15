@@ -1,4 +1,3 @@
-
 type List {
     id: String!
     title: String!
@@ -12,7 +11,8 @@ type Item {
 }
 
 type Query {
-    list: [Item]
+    getList: [Item]
+    getItem(id: String!): Item
 }
 
 type Mutation {

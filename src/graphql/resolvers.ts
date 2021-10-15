@@ -1,36 +1,62 @@
-import { MutationCreateItemArgs, MutationUpdateItemArgs, MutationDeleteItemArgs } from './types'
-import * as uuid from 'uuid'
+import { MutationCreateItemArgs, MutationUpdateItemArgs, MutationDeleteItemArgs } from './types';
+import { v4 as uuid } from 'uuid';
+import todoModel from '../models/todoModel';
 
-const todoList = require('../../mock_initial_data.json')
+const resolvers = {
 
-export const resolvers = {
-    // Return value of parent resolver
     Query: {
-        list: () => todoList.items,
+        async getList(parent, args) {
+            try {
+                return await todoModel.find();
+            } catch (error: any) {
+                throw new Error(error);
+            }
+        },
+        async getItem(parent, args) {
+            try {
+                const id = args.id;
+                return await todoModel.findOne({ id: id });
+            } catch (error: any) {
+                throw new Error(error);
+            }
+        },
     },
 
     Mutation: {
-        createItem(_, { title, description }: MutationCreateItemArgs) {
-            const item = { id: uuid.v4(), title, description }
-            todoList.items.push(item)
-            return item
-        },
-        updateItem(_, { id, title, description }: MutationUpdateItemArgs) {
-            const item = todoList.items.find(i => i.id === id)
-            if (item) {
-                item.title = title
-                item.description = description
-                return item
+        async createItem(_, { title, description }: MutationCreateItemArgs) {
+            try {
+                const item = { id: uuid(), title, description }
+                return await todoModel.create(item);
+            } catch (error: any) {
+                throw new Error(error);
             }
-            throw new Error('Id not found');
         },
-        deleteItem(_, { id }: MutationDeleteItemArgs) {
-            const idx = todoList.items.findIndex(i => i.id === id)
-            if (idx !== -1) {
-                todoList.items.splice(idx, 1)
-                return `Item ${id} deleted with success`
+        async updateItem(_, { id, title, description }: MutationUpdateItemArgs) {
+            try {
+                const item = await todoModel.findOneAndUpdate({ id: id }, { title, description }, { new: true });
+                if (item) {
+                    return item;
+                } else {
+                    throw new Error('Id not found');
+                }
+            } catch (error: any) {
+                throw new Error(error);
             }
-            throw new Error('Id not found');
+        },
+        async deleteItem(_, { id }: MutationDeleteItemArgs) {
+            try {
+                const item = await todoModel.findOne({ id: id });
+                if (item) {
+                    const deleted = await todoModel.findByIdAndDelete(item);
+                    return deleted.id
+                } else {
+                    throw new Error('Id not found');
+                }
+            } catch (error: any) {
+                throw new Error(error);
+            }
         }
     }
 };
+
+export { resolvers };

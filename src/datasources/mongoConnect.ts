@@ -1,13 +1,11 @@
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+import * as dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config();
+const mongoUrl: string = process.env.DATABASE_URL!
 
 const mongoConnect = async () => {
-  mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    retryWrites: true,
+  mongoose.connect(mongoUrl, {
     w: "majority",
   }).then(
     () => {

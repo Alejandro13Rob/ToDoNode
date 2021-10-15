@@ -33,6 +33,7 @@ export type Item = {
 export type Query = {
     __typename?: 'Query';
     list?: Maybe<Array<Maybe<Item>>>;
+    item?: Maybe<Array<Maybe<Item>>>;
 };
 
 export type Mutation = {
