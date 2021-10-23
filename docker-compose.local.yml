@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  app:
+    env_file: .env
+    build:
+      target: local
+      args:
+        ENV: 'local'
+    container_name: todo-node-local
+    ports:
+      - '4000:4000'
+      - '9200:9200'

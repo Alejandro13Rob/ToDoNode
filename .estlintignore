@@ -9,3 +9,5 @@ README
 **/generated.d.ts
 **/generated.ts
 **/*.test.ts
+Dockerfile
+docker-compose-up.yml

@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  local:
+    cmds:
+      - echo 'Building local image'
+      - docker-compose -f docker-compose.yml -f docker-compose.local.yml up --build
+    silent: true
+  prod:
+    cmds:
+      - echo 'Building prod image'
+      - docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+    silent: true

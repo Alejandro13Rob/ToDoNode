@@ -1,16 +1,13 @@
-import {
-    MutationCreateItemArgs,
-    MutationUpdateItemArgs,
-    MutationDeleteItemArgs,
-} from './types';
+import { MutationCreateItemArgs, MutationUpdateItemArgs, MutationDeleteItemArgs } from './types';
 import { v4 as uuid } from 'uuid';
-import todoModel from '../models/todoModel';
+import todoModel from '../../models/todoModel';
 
 const resolvers = {
     Query: {
-        async getList(parent, args) {
+        async getList(parent, args, { getTodoLoader }) {
             try {
-                return await todoModel.find();
+                const allTodos = await todoModel.find();
+                return allTodos;
             } catch (error: any) {
                 throw new Error(error);
             }

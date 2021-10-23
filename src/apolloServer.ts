@@ -1,15 +1,24 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { ApolloServerExpressConfig } from 'apollo-server-express';
-import { resolvers } from './graphql/resolvers';
+import { dataLoaders } from './models/dataloaders';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { resolvers } from './graphql/todos/resolvers';
+import { typeDefs } from './graphql/todos/typeDefs';
+import { mongoConnect } from './datasources/mongoConnect';
 
-const typeDefs = fs
-    .readFileSync(path.join(__dirname, './graphql/schema.gql'), 'utf8')
-    .toString();
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
 
 const serverConfig: ApolloServerExpressConfig = {
-    typeDefs,
-    resolvers,
+    schema,
+    context: async() => {
+      const loaders = await dataLoaders();
+
+      return { loaders };
+    },
 };
 
 export { serverConfig };

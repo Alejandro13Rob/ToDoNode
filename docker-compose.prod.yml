@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  app:
+    env_file: .env
+    build:
+      target: remote
+      args:
+        ENV: 'production'
+    container_name: todo-node-production
+    ports:
+      - '4000:4000'
