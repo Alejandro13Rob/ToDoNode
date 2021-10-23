@@ -1,19 +1,13 @@
 import * as dotenv from 'dotenv';
-import mongoose from 'mongoose';
+import { connect } from 'mongoose';
+import { todoModel } from '../models/todoModel';
 
 dotenv.config();
 const mongoUrl: string = process.env.DATABASE_URL!;
 
-const mongoConnect = async () => {
-    await mongoose.connect(mongoUrl, {
-            w: 'majority',
-        })
-        .then(() => {
-            console.info(`Connected to mongo!`);
-        })
-        .catch((error) => {
-            throw new Error(error);
-        });
-};
+async function mongoConnect(): Promise<void> {
+    await connect(mongoUrl);
+    console.info(`Connected to mongo!`);
+}
 
 export { mongoConnect };

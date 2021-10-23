@@ -12,7 +12,7 @@ async function startApolloServer() {
         app,
     });
 
-    await mongoConnect();
+    mongoConnect().catch(err => console.log(err));
 
     await new Promise((resolve: any) => app.listen({ port: 4000 }, resolve));
     const homeRoute = `http://localhost:4000${apolloServer.graphqlPath}`;

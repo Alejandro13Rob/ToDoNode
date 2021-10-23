@@ -1,6 +1,6 @@
 import { MutationCreateItemArgs, MutationUpdateItemArgs, MutationDeleteItemArgs } from './types';
 import { v4 as uuid } from 'uuid';
-import todoModel from '../../models/todoModel';
+import { todoModel } from '../../models/todoModel';
 
 const resolvers = {
     Query: {
@@ -34,10 +34,10 @@ const resolvers = {
         async updateItem(_, { id, title, description }: MutationUpdateItemArgs) {
             try {
                 const item = await todoModel.findOneAndUpdate(
-                    { id: id },
-                    { title, description },
-                    { new: true }
-                );
+                    { "id": id } ,
+                    { $set: { "title" : title, "description" : description }},
+                    { new : true }
+                )
                 if (item) {
                     return item;
                 } else {
@@ -52,7 +52,7 @@ const resolvers = {
                 const item = await todoModel.findOne({ id: id });
                 if (item) {
                     const deleted = await todoModel.findByIdAndDelete(item);
-                    return deleted.id;
+                    return deleted?.id;
                 } else {
                     throw new Error('Id not found');
                 }
