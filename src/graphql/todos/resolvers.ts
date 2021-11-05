@@ -54,7 +54,7 @@ const resolvers = {
                     const deleted = await todoModel.findByIdAndDelete(item);
                     return deleted?.id;
                 } else {
-                    throw new Error('Id not found');
+                    throw new Error('Not found');
                 }
             } catch (error: any) {
                 throw new Error(error);

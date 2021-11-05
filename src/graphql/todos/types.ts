@@ -33,7 +33,7 @@ export type Item = {
     __typename?: 'Item';
     id: Scalars['String'];
     title: Scalars['String'];
-    description: Scalars['String'];
+    description?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -50,7 +50,7 @@ export type Mutation = {
 };
 
 export type MutationCreateItemArgs = {
-    title?: Maybe<Scalars['String']>;
+    title: Scalars['String'];
     description?: Maybe<Scalars['String']>;
 };
 

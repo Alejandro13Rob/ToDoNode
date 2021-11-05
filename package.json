@@ -29,18 +29,23 @@
   "license": "MIT",
   "dependencies": {
     "@graphql-codegen/cli": "^2.2.0",
+    "@graphql-tools/stitch": "^8.4.1",
     "apollo-datasource-mongodb": "^0.5.2",
     "apollo-server": "^3.3.0",
     "apollo-server-express": "^3.3.0",
+    "bcryptjs": "^2.4.3",
     "crypto-js": "^4.1.1",
     "dataloader": "^2.0.0",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
     "graphql": "^15.6.0",
     "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "rimraf": "^3.0.2",
+    "type-graphql": "^1.1.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

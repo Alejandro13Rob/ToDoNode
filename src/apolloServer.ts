@@ -1,24 +1,33 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { ApolloServerExpressConfig } from 'apollo-server-express';
 import { dataLoaders } from './models/dataloaders';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { resolvers } from './graphql/todos/resolvers';
-import { typeDefs } from './graphql/todos/typeDefs';
-import { mongoConnect } from './datasources/mongoConnect';
+import { isAuth } from './utils/isAuth';
+import { stitchSchemas } from '@graphql-tools/stitch';
+import { todoSchema } from './graphql/todos/typeDefs';
+import { userSchema } from './graphql/users/typeDefs';
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+// setup subschema configurations
+const todoSubschema = { schema: todoSchema };
+const userSubschema = { schema: userSchema };
+
+// build the combined schema
+const gatewaySchema = stitchSchemas({
+  subschemas: [
+    todoSubschema,
+    userSubschema,
+  ]
 });
 
 const serverConfig: ApolloServerExpressConfig = {
-    schema,
-    context: async() => {
-      const loaders = await dataLoaders();
-
-      return { loaders };
+    schema: gatewaySchema,
+    context: ({ req }) => {
+      const token = req.get('Authorization') || '';
+      const user = isAuth(token.replace('Bearer', '').trim());
+      return { user }
+      
+      //const loaders = await dataLoaders();
+      //return { loaders };
     },
+    introspection: true
 };
 
 export { serverConfig };
